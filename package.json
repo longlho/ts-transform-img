@@ -1,8 +1,9 @@
 {
   "name": "ts-transform-img",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Allow `import * as img from 'foo.png'` in TS",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "test": "rm -rf test/fixture/*.js && mocha --compilers ts:ts-node/register",
     "prepublish": "tsc"
