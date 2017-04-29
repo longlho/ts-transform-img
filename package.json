@@ -4,7 +4,8 @@
   "description": "Allow `import * as img from 'foo.png'` in TS",
   "main": "index.js",
   "scripts": {
-    "test": "rm -rf test/fixture/*.js && mocha --compilers ts:ts-node/register"
+    "test": "rm -rf test/fixture/*.js && mocha --compilers ts:ts-node/register",
+    "prepublish": "tsc"
   },
   "repository": {
     "type": "git",
