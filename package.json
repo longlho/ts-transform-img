@@ -1,12 +1,13 @@
 {
   "name": "ts-transform-img",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Allow `import * as img from 'foo.png'` in TS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
     "test": "rm -rf test/fixture/*.js && mocha --compilers ts:ts-node/register",
-    "prepublish": "tsc"
+    "prettier": "prettier --print-width=120 --tab-width=4 --single-quote --trailing-comma=es5 --no-semi --parser=typescript --write 'src/**/*.ts*' || true",
+    "prepublishOnly": "tsc"
   },
   "repository": {
     "type": "git",
@@ -24,18 +25,24 @@
   },
   "homepage": "https://github.com/longlho/ts-transform-png#readme",
   "devDependencies": {
-    "@types/chai": "^3.5.2",
-    "@types/fs-extra": "^2.1.0",
-    "@types/mocha": "^2.2.41",
-    "@types/node": "^7.0.14",
-    "chai": "^3.5.0",
-    "fs-extra": "^3.0.0",
-    "glob": "^7.1.1",
-    "mocha": "^3.3.0",
-    "ts-node": "^3.0.2",
-    "typescript": "^2.4.0-dev.20170428"
+    "@types/chai": "^4.0.4",
+    "@types/fs-extra": "^4.0.2",
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^8.0.28",
+    "chai": "^4.1.2",
+    "fs-extra": "^4.0.2",
+    "glob": "^7.1.2",
+    "mocha": "^3.5.3",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.7.0",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.5.2"
   },
   "dependencies": {
     "loader-utils": "^1.1.0"
-  }
+  },
+  "pre-commit": [
+    "prettier",
+    "test"
+  ]
 }

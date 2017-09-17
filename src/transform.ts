@@ -29,7 +29,7 @@ function visitor(ctx: ts.TransformationContext, sf: ts.SourceFile, opts: Opts = 
         let imgPath: string
         if (
             node.kind !== ts.SyntaxKind.ImportDeclaration ||
-            !IMG_EXTENSION_REGEX.test(imgPath = (node as ts.ImportDeclaration).moduleSpecifier.getText())
+            !IMG_EXTENSION_REGEX.test((imgPath = (node as ts.ImportDeclaration).moduleSpecifier.getText()))
         ) {
             return ts.visitEachChild(node, visitor, ctx)
         }
@@ -44,10 +44,7 @@ function visitor(ctx: ts.TransformationContext, sf: ts.SourceFile, opts: Opts = 
 
         const contentStr = readFileSync(imgPath).toString('base64')
         const ext = extname(imgPath).substr(1)
-        const {
-            threshold = 1e4,
-            generateFilePath = path => path
-        } = opts || {}
+        const { threshold = 1e4, generateFilePath = path => path } = opts || {}
         let content: string
         // Embeds everything that's less than threshold
         // Bug in typedefs where byteLength only takes string
@@ -58,24 +55,21 @@ function visitor(ctx: ts.TransformationContext, sf: ts.SourceFile, opts: Opts = 
         }
 
         // This is the "foo" from "import * as foo from 'foo.css'"
-        const importVar = ((node as ts.ImportDeclaration).importClause.namedBindings as ts.NamespaceImport).name.getText()
+        const importVar = ((node as ts.ImportDeclaration).importClause
+            .namedBindings as ts.NamespaceImport).name.getText()
 
-        const cssVarStatement = ts.createNode(ts.SyntaxKind.VariableStatement) as ts.VariableStatement
-
-        cssVarStatement.declarationList = ts.createNode(ts.SyntaxKind.VariableDeclarationList) as ts.VariableDeclarationList
-        const varDecl = ts.createNode(ts.SyntaxKind.VariableDeclaration) as ts.VariableDeclaration
-        varDecl.name = ts.createNode(ts.SyntaxKind.Identifier) as ts.Identifier
-        varDecl.name.text = importVar
-        varDecl.initializer = ts.createNode(ts.SyntaxKind.StringLiteral) as ts.StringLiteral
-        (varDecl.initializer as ts.StringLiteral).text = content
-        cssVarStatement.declarationList.declarations = [varDecl] as ts.NodeArray<ts.VariableDeclaration>
-        return cssVarStatement
+        return ts.createVariableStatement(
+            undefined,
+            ts.createVariableDeclarationList(
+                ts.createNodeArray([ts.createVariableDeclaration(importVar, undefined, ts.createLiteral(content))])
+            )
+        )
     }
 
     return visitor
 }
 
-export default function (opts?: Opts) {
+export default function(opts?: Opts) {
     return (ctx: ts.TransformationContext): ts.Transformer<ts.SourceFile> => {
         return (sf: ts.SourceFile) => ts.visitNode(sf, visitor(ctx, sf, opts))
     }
