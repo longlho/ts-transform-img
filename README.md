@@ -12,5 +12,5 @@ First of all, you need some level of familiarity with the [TypeScript Compiler A
 ### `threshold?: number`
 Threshold of img size that will be inlined, default to 10K
 
-### `generateFilePath?(filename: string): string;`
-Function to generate URL for imgs that are above the threshold
+### `generateFilePath?(filePath: string): string;`
+Function to generate URL for imgs that are above the threshold. `filePath` absolute path to img file from the import source file path
