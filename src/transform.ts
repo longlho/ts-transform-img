@@ -16,7 +16,14 @@ export type GenerateScopedNameFn = (
  * @interface Opts
  */
 export interface Opts {
+  /**
+   * Generate URL for imgs that are above the threshold
+   * @param filename filename
+   */
   generateFilePath?(filename: string): string;
+  /**
+   * Threshold of img that will be inlined
+   */
   threshold?: number;
 }
 
@@ -26,7 +33,7 @@ function generateImgPath(filename: string) {
   return `${basename(filename, ext)}.${hash}${ext}`;
 }
 
-const IMG_EXTENSION_REGEX = /\.png|\.jpg|\.jpeg['"]$/;
+const IMG_EXTENSION_REGEX = /\.gif|\.png|\.jpg|\.jpeg['"]$/;
 
 function visitor(
   ctx: ts.TransformationContext,
