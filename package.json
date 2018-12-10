@@ -1,6 +1,6 @@
 {
   "name": "ts-transform-img",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Allow `import * as img from 'foo.png'` in TS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
