@@ -38,6 +38,7 @@ function visitor(ctx: ts.TransformationContext, sf: ts.SourceFile, opts: Opts = 
         let namespaceImport: ts.NamespaceImport
         if (
             !ts.isImportDeclaration(node) ||
+            !node.importClause ||
             !ts.isNamespaceImport((namespaceImport = node.importClause.namedBindings as ts.NamespaceImport)) ||
             !IMG_EXTENSION_REGEX.test((imgPath = node.moduleSpecifier.getText(sf)))
         ) {
