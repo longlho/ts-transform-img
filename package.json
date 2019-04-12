@@ -1,6 +1,6 @@
 {
   "name": "ts-transform-img",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Allow `import * as img from 'foo.png'` in TS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -26,20 +26,20 @@
   "homepage": "https://github.com/longlho/ts-transform-img#readme",
   "devDependencies": {
     "@types/chai": "^4.1.7",
-    "@types/fs-extra": "^5.0.4",
-    "@types/mocha": "^5.0.0",
-    "@types/node": "^11.9.3",
+    "@types/fs-extra": "^5.0.5",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^11.13.4",
     "chai": "^4.2.0",
     "fs-extra": "^7.0.0",
     "glob": "^7.1.3",
-    "mocha": "^6.0.0",
+    "mocha": "^6.1.3",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.15.3",
-    "ts-node": "^8.0.2"
+    "prettier": "^1.16.4",
+    "ts-node": "^8.0.3"
   },
   "dependencies": {
-    "loader-utils": "^1.1.0",
-    "typescript": "^3.2.2"
+    "loader-utils": "^1.2.3",
+    "typescript": "^3.4.3"
   },
   "pre-commit": [
     "prettier",
