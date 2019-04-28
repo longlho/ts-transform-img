@@ -2,11 +2,7 @@ import * as ts from "typescript";
 import { resolve, dirname, extname, basename } from "path";
 import { readFileSync } from "fs";
 
-export type GenerateScopedNameFn = (
-  name: string,
-  filepath: string,
-  css: string
-) => string;
+export type InterpolateNameFn = (sourceFileName: string, imgPath: string) => string
 
 /**
  * Options
@@ -16,21 +12,27 @@ export type GenerateScopedNameFn = (
  */
 export interface Opts {
   /**
-   * Generate URL for imgs that are above the threshold
-   * @param filePath absolute path to img file from the import source file path
-   */
-  generateFilePath(filePath: string): string;
-  /**
    * Threshold of img that will be inlined
    */
   threshold?: number;
+  /**
+   * Callback that gets triggered every time we encounter
+   * an img import
+   * @param params 
+   */
+  onImgExtracted (params: { imgPath: string, srcFilePath: string}): void
+  /**
+   * webpack-style name interpolation
+   *
+   * @type {(InterpolateNameFn | string)}
+   * @memberof Opts
+   */
+  interpolateName?: InterpolateNameFn | string
 }
 
 const DEFAULT_OPTS: Opts = {
   threshold: 1e4,
-  generateFilePath(filePath) {
-    return filePath;
-  }
+  onImgExtracted(){}
 };
 
 const IMG_EXTENSION_REGEX = /\.gif|\.png|\.jpg|\.jpeg['"]$/;
@@ -41,6 +43,7 @@ function visitor(
   opts: Opts = DEFAULT_OPTS
 ) {
   opts = { ...DEFAULT_OPTS, ...opts };
+  const {onImgExtracted, threshold} = opts
   const visitor: ts.Visitor = (node: ts.Node): ts.Node => {
     let imgPath: string;
     let namespaceImport: ts.NamespaceImport;
@@ -65,14 +68,17 @@ function visitor(
       imgPath = resolve(dirname(sourcePath), imgPath);
     }
 
-    const contentStr = readFileSync(imgPath).toString("base64");
+    const contentStr = readFileSync(imgPath);
     const ext = extname(imgPath).substr(1);
-    const { threshold, generateFilePath } = opts;
     let content: string;
     // Embeds everything that's less than threshold
-    // Bug in typedefs where byteLength only takes string
     if (Buffer.byteLength(contentStr) > threshold) {
-      content = generateFilePath(resolve(basename(sf.fileName), imgPath));
+      const imgAbsolutePath = resolve(basename(sf.fileName), imgPath)
+      onImgExtracted({imgPath: imgAbsolutePath, srcFilePath: sf.fileName})
+      // If falsy content, don't transform the node
+      if (!content) {
+        return ts.visitEachChild(node, visitor, ctx)
+      }
     } else {
       content = `data:image/${ext};base64,${contentStr}`;
     }
