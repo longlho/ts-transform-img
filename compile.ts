@@ -31,8 +31,9 @@ export default function compile(
   let emitResult = program.emit(undefined, undefined, undefined, undefined, {
     before: [
       transform({
-        generateFilePath(filePath) {
-          return filePath.split(__dirname)[1];
+        interpolateName: '[hash:base64:10]',
+        onImgExtracted(id, path) {
+          msgs[id] = path
         }
       })
     ]
