@@ -1,6 +1,6 @@
 {
   "name": "ts-transform-img",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Allow `import * as img from 'foo.png'` in TS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -40,7 +40,7 @@
   "dependencies": {
     "@types/loader-utils": "^1.1.3",
     "loader-utils": "^1.2.3",
-    "typescript": "^3.4.5"
+    "typescript": "3.2"
   },
   "pre-commit": [
     "prettier",
