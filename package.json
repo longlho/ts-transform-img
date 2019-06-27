@@ -26,7 +26,7 @@
   "homepage": "https://github.com/longlho/ts-transform-img#readme",
   "devDependencies": {
     "@types/chai": "^4.1.7",
-    "@types/fs-extra": "7",
+    "@types/fs-extra": "8",
     "@types/mocha": "^5.2.6",
     "@types/node": "12",
     "chai": "^4.2.0",
