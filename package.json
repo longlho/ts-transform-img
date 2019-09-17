@@ -25,22 +25,22 @@
   },
   "homepage": "https://github.com/longlho/ts-transform-img#readme",
   "devDependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/fs-extra": "7",
+    "@types/chai": "^4.2.3",
+    "@types/fs-extra": "8",
     "@types/mocha": "^5.2.6",
-    "@types/node": "12",
+    "@types/node": "^12.7.5",
     "chai": "^4.2.0",
-    "fs-extra": "8",
+    "fs-extra": "^8.1.0",
     "glob": "^7.1.4",
-    "mocha": "^6.1.4",
+    "mocha": "^6.2.0",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.17.1",
-    "ts-node": "^8.1.0"
+    "prettier": "^1.18.2",
+    "ts-node": "^8.4.1"
   },
   "dependencies": {
     "@types/loader-utils": "^1.1.3",
     "loader-utils": "^1.2.3",
-    "typescript": "^3.2"
+    "typescript": "^3.6.3"
   },
   "pre-commit": [
     "prettier",

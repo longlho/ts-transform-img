@@ -1,8 +1,5 @@
 # ts-transform-img
 
-![build status](https://travis-ci.org/longlho/ts-transform-img.svg?branch=master)
-[![Greenkeeper badge](https://badges.greenkeeper.io/longlho/ts-transform-img.svg)](https://greenkeeper.io/)
-
 This is a TypeScript AST Transformer that allows you to write `import * as img from 'foo.png'`. Depending on file size, the img with be base64-inlined in the source or aggregated via `onImgExtracted`.
 
 ## Usage
