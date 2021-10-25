@@ -35,7 +35,7 @@
     "mocha": "^8.0.1",
     "pre-commit": "^1.2.2",
     "prettier": "^2.0.5",
-    "ts-node": "^8.4.1"
+    "ts-node": "^10.4.0"
   },
   "dependencies": {
     "@types/loader-utils": "^2.0.1",
